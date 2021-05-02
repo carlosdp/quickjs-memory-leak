@@ -3,6 +3,7 @@ import "./App.css";
 import { getQuickJS } from "quickjs-emscripten";
 import packageJson from "./package.json";
 import packageLockJson from "./package-lock.json";
+import { inspect } from "util";
 
 function stringify(val: unknown) {
   if (typeof val === "undefined") {
@@ -13,7 +14,7 @@ function stringify(val: unknown) {
 }
 
 function App() {
-  const [evalResult, setEvalResult] = React.useState<unknown>(undefined);
+  const [evalResult, setEvalResult] = React.useState<unknown>("initial value");
   const handleEval = React.useCallback(async () => {
     const QuickJS = await getQuickJS();
     try {
@@ -21,10 +22,10 @@ function App() {
       const js = await response.text();
       const result = QuickJS.evalCode(js);
       console.log("eval result:", result);
-      setEvalResult(result);
+      setEvalResult({ result });
     } catch (err) {
       console.log("eval error:", err);
-      setEvalResult(err);
+      setEvalResult({ error: err });
     }
   }, [setEvalResult]);
   useEffect(() => {
@@ -52,23 +53,27 @@ function App() {
           <li>Expose host functions to the QuickJS runtime.</li>
         </ul>
         <p>
-          <a href="https://github.com/justjake/quickjs-emscripten">Github</a> -{' '}
+          <a href="https://github.com/justjake/quickjs-emscripten">Github</a> -{" "}
           <a href="https://github.com/justjake/quickjs-emscripten/blob/master/doc/globals.md">
             Documentation
-          </a>{' '}
+          </a>{" "}
           - <a href="https://www.npmjs.com/package/quickjs-emscripten">NPM</a>
         </p>
-        <h2>Testing code that causes memory leak without any externally created objects</h2>
+        <h2>
+          Testing code that causes memory leak without any externally created
+          objects
+        </h2>
         <label htmlFor="js">
-          This code is evaluated in a QuickJS virtual machine, using QuickJS.evalCode(), so there are no external objects referenced.
-          In console, you will see failed assertions for memory not cleaned up.
+          This code is evaluated in a QuickJS virtual machine, using
+          QuickJS.evalCode(), so there are no external objects referenced. In
+          console, you will see failed assertions for memory not cleaned up.
         </label>
         <h3>Eval result:</h3>
-        <pre>{stringify(evalResult)}</pre>
+        <pre>{inspect(evalResult)}</pre>
         <button onClick={handleEval}>Run Again</button>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
