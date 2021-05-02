@@ -8751,8 +8751,10 @@ querystringify@^2.1.1:
   resolved "https://registry.yarnpkg.com/querystringify/-/querystringify-2.2.0.tgz#3345941b4153cb9d082d8eee4cda2016a9aef7f6"
   integrity sha512-FIqgj2EUvTa7R50u0rGsyTftzjYmv/a3hO345bZNrqabNqjtgiDMgmo4mkUjd+nzU5oF3dClKqFIPUKybUyqoQ==
 
-"quickjs-emscripten@file:../quickjs-emscripten":
+quickjs-emscripten@^0.11.0:
   version "0.11.0"
+  resolved "https://registry.yarnpkg.com/quickjs-emscripten/-/quickjs-emscripten-0.11.0.tgz#c444899ee43d27fbd0668f3699b83a9d882cdc2d"
+  integrity sha512-adOtvmMDEQD9fsFZXgV+vfnAAjPuvEvYv5QpiS3SXM0fj7NOMkY7uSJ61SdWADcT5xa6n6P7JdYIievqODsDyA==
 
 raf@^3.4.1:
   version "3.4.1"
